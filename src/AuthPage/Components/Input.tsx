@@ -11,7 +11,6 @@ type InputProps = {
     touched?: boolean;
     onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
     onBlur: React.ChangeEventHandler<HTMLInputElement>;
-
 }
 
 export default function Input({ name, label, type, icon, value, error, touched, onChange, onBlur 
@@ -27,8 +26,6 @@ export default function Input({ name, label, type, icon, value, error, touched, 
             {touched && error && (
                 <span className={styles.errorText}>{error}</span>
             )}
-
         </div>
     )
 }
-

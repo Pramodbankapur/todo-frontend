@@ -1,22 +1,14 @@
-button {
-    width: 100%;
-    padding: 16px;
-    margin-top: 20px;
-
-    border: none;
-    border-radius: 10px;
-    background: #ff7a7a;
-    color: white;
-
-    font-size: 15px;
-    cursor: pointer;
-
-    height: 48px;
-    font-weight: 500;
-    letter-spacing: 0.3px;
-    transition: transform 0.1s ease, box-shadow 0.2s ease;
+.button {
+  width: 100%;
+  height: 48px;
+  border-radius: 10px;
+  background: #ff7a7a;
+  color: white;
+  border: none;
+  font-size: 15px;
+  cursor: pointer;
 }
 
-button:disabled {
-    background: #ffd0d0;
+.button:disabled {
+  background: #ffd0d0;
 }

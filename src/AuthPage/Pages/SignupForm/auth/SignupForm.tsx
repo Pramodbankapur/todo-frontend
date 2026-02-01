@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import type { Errors, SignupFormData, Touched } from "./auth.types";
-import styles from './SignupForm.module.css'
+import styles from '../../AuthForm.module.css'
 import authImage from '../../../Assets/SignupLoginPage.jpeg'
 import { Checkbox } from "../../../Components/CheckBox";
 import { Button } from "../../../Components/Button";
@@ -22,14 +22,13 @@ export function SignupForm() {
     const [touched, setTouched] = useState<Touched>({});
 
     function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
-    const { name, value, checked, type } = e.target;
+        const { name, value, checked, type } = e.target;
 
-    setFormData(prev => ({
-        ...prev,
-        [name]: type === "checkbox" ? checked : value,
-    }));
-}
-
+        setFormData(prev => ({
+            ...prev,
+            [name]: type === "checkbox" ? checked : value,
+        }));
+    }
 
     function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault();
@@ -56,31 +55,30 @@ export function SignupForm() {
     }
 
     function validate(formData: SignupFormData): Errors {
-    const errors: Errors = {};
+        const errors: Errors = {};
 
-    if (!formData.firstName.trim()) {
-        errors.firstName = 'First name is required';
+        if (!formData.firstName.trim()) {
+            errors.firstName = 'First name is required';
+        }
+
+        if (!formData.email.trim() || !formData.email.includes('@')) {
+            errors.email = 'Invalid email address';
+        }
+
+        if (formData.password.trim().length < 6) {
+            errors.password = 'Password must be at least 6 characters';
+        }
+
+        if (formData.password !== formData.confirmPassword) {
+            errors.confirmPassword = 'Passwords do not match';
+        }
+
+        if (!formData.acceptedTerms) {
+            errors.acceptedTerms = 'You must accept the terms';
+        }
+
+        return errors;
     }
-
-    if (!formData.email.trim() || !formData.email.includes('@')) {
-        errors.email = 'Invalid email address';
-    }
-
-    if (formData.password.trim().length < 6) {
-        errors.password = 'Password must be at least 6 characters';
-    }
-
-    if (formData.password !== formData.confirmPassword) {
-        errors.confirmPassword = 'Passwords do not match';
-    }
-
-    if (!formData.acceptedTerms) {
-        errors.acceptedTerms = 'You must accept the terms';
-    }
-
-    return errors;
-}
-
 
     return (<div className={styles.page}>
         <div className={styles.authCard}>
@@ -108,7 +106,7 @@ export function SignupForm() {
                     <label className={styles.switchAuth}>
                         Already have an account? <a href="/login">Log in</a>
                     </label>
-                    
+
                     <Button type="submit" disabled={!formData.acceptedTerms} >
                         Resgister
                     </Button>

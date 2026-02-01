@@ -1,25 +1,23 @@
- .field {
-     position: relative;
-     margin-bottom: 28px;
- }
+.field {
+  position: relative;
+}
 
- /* ===== Input ===== */
- .input {
-     width: 100%;
-     padding: 16px 14px 16px 44px;
-     border-radius: 10px;
-     border: 1px solid #dcdcdc;
-     font-size: 14px;
- }
+.input {
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+  padding: 16px 14px 16px 44px;
+  border-radius: 10px;
+  border: 1px solid #dcdcdc;
+}
 
- .input:focus {
-     border-color: #4a6cf7;
-     box-shadow: 0 0 0 3px rgba(74, 108, 247, 0.15);
- }
+.input:focus {
+  border-color: #4a6cf7;
+  box-shadow: 0 0 0 3px rgba(74, 108, 247, 0.15);
+}
 
-
- /* ===== Label ===== */
- .label {
+/* ===== Label ===== */
+.label {
   position: absolute;
   left: 44px;
   top: 50%;
@@ -39,8 +37,7 @@
   color: #4a6cf7;
 }
 
-
- /* ===== Icon ===== */
+/* ===== Icon ===== */
 .icon {
   position: absolute;
   left: 16px;
@@ -50,26 +47,15 @@
   pointer-events: none;
 }
 
-
-
- /* ===== Field ===== */
- .field {
-     position: relative;
-     margin-bottom: 28px;
- }
-
+/* ===== Errors ===== */
 .errorWrapper {
-  min-height: 16px; /* ALWAYS reserve space */
+  min-height: 16px;
   margin-top: 6px;
 }
 
- /* ===== Errors ===== */
 .errorText {
   font-size: 12px;
   color: #ff4d4f;
   margin-top: 6px;
   line-height: 1.2;
 }
-
-
-

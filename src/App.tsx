@@ -1,6 +1,7 @@
+import { LoginForm } from "./AuthPage/Pages/LoginForm/Login";
 import { SignupForm } from "./AuthPage/Pages/SignupForm/auth/SignupForm";
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
-import { LoginForm } from "./AuthPage/Pages/LoginForm/components/LoginForm";
+
 
 
 function App() {
