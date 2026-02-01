@@ -1,0 +1,116 @@
+/* Base Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+}
+
+.page {
+    min-height: 100vh;
+    background-color: #ff6b6b;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+}
+
+.authCard {
+    background: #ffffff;
+    width: 900px;
+    max-width: 90%;
+    border-radius: 16px;
+    display: flex;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
+}
+
+
+/* LEFT IMAGE */
+.authIllustration {
+    width: 45%;
+    background: #f7f9ff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 32px;
+}
+
+.authIllustration img {
+    max-width: 100%;
+    height: auto;
+    object-fit: contain;
+}
+
+/* FORM SIDE */
+.formWrapper {
+    width: 55%;
+    padding: 40px 40px;
+    display: flex;
+    flex-direction: column;
+}
+
+
+/* TITLE */
+.formWrapper h2 {
+    font-size: 28px;
+    font-weight: 600;
+    color: #222;
+    margin-bottom: 24px;
+}
+
+/* FORM */
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.formRow {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+}
+
+
+.fullWidth{
+    grid-column: 1/-1;
+}
+
+/* SWITCH AUTH LINK */
+.switchAuth {
+    font-size: 14px;
+    color: #666;
+    margin-top: 4px;
+}
+
+.switchAuth a {
+    color: #ff6b6b;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+/* UnderLine for Login */
+.switchAuth a:hover {
+    text-decoration: underline;
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+    .authCard {
+        flex-direction: column;
+    }
+
+    .authIllustration {
+        width: 100%;
+        height: 220px;
+        padding: 16px;
+    }
+
+    .formWrapper {
+        width: 100%;
+        padding: 32px 24px;
+    }
+}

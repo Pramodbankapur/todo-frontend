@@ -1,0 +1,14 @@
+/* ===== Checkbox ===== */
+.checkbox {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+    margin: 12px 0;
+}
+
+.checkbox input {
+  width: 16px;
+  height: 16px;
+}
+
