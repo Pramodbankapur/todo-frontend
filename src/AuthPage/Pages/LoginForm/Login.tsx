@@ -5,6 +5,7 @@ import { Checkbox } from "../../Components/CheckBox";
 import { Button } from "../../Components/Button";
 import Input from "../../Components/Input";
 import type { ErrorsSingin, SinginData , TouchedSignin } from "../SignupForm/auth/auth.types";
+import { Link } from "react-router-dom";
 
 export function LoginForm() {
     const [touched, setTouched] = useState<TouchedSignin>({ username: true, password: true });
@@ -102,7 +103,7 @@ export function LoginForm() {
                         />
 
                         <label className={styles.switchAuth}>
-                            Don’t have an account? <a href="/signup">Sign up</a>
+                            Don’t have an account? <Link to="/signup">Sign up</Link>
                         </label>
 
                         <Button
