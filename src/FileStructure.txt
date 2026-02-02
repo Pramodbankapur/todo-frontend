@@ -1,0 +1,63 @@
+src/
+│
+├── assets/
+│   ├── images/
+│   └── icons/
+│
+├── components/              # GLOBAL reusable components
+│   ├── Button/
+│   │   ├── Button.tsx
+│   │   └── Button.module.css
+│   ├── Input/
+│   ├── Checkbox/
+│   └── Loader/
+│
+├── features/
+│   ├── auth/
+│   │   ├── pages/
+│   │   │   ├── Login/
+│   │   │   │   ├── Login.tsx
+│   │   │   │   └── Login.module.css
+│   │   │   └── Signup/
+│   │   ├── components/
+│   │   ├── auth.types.ts
+│   │   └── auth.api.ts
+│   │
+│   ├── dashboard/
+│   │   ├── pages/
+│   │   │   └── Dashboard/
+│   │   │       ├── Dashboard.tsx
+│   │   │       └── Dashboard.module.css
+│   │   │
+│   │   ├── components/
+│   │   │   ├── Sidebar/
+│   │   │   │   ├── Sidebar.tsx
+│   │   │   │   └── Sidebar.module.css
+│   │   │   ├── TopBar/
+│   │   │   ├── TaskCard/
+│   │   │   ├── StatusChart/
+│   │   │   └── UserAvatar/
+│   │   │
+│   │   ├── dashboard.types.ts
+│   │   └── dashboard.mock.ts   # temporary data
+│   │
+│   └── tasks/
+│       ├── components/
+│       ├── task.api.ts
+│       └── task.types.ts
+│
+├── layouts/
+│   ├── AuthLayout.tsx
+│   └── DashboardLayout.tsx
+│
+├── routes/
+│   └── AppRoutes.tsx
+│
+├── hooks/
+│   └── useAuth.ts
+│
+├── lib/
+│   └── axios.ts
+│
+├── App.tsx
+└── main.tsx
