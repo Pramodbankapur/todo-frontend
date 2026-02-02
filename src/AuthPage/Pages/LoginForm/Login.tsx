@@ -4,7 +4,7 @@ import loginImg from '../../Assets/SinginLoginPage.png';
 import { Checkbox } from "../../Components/CheckBox";
 import { Button } from "../../Components/Button";
 import Input from "../../Components/Input";
-import type { ErrorsSingin, SinginData, Touched, TouchedSignin } from "../SignupForm/auth/auth.types";
+import type { ErrorsSingin, SinginData , TouchedSignin } from "../SignupForm/auth/auth.types";
 
 export function LoginForm() {
     const [touched, setTouched] = useState<TouchedSignin>({ username: true, password: true });
