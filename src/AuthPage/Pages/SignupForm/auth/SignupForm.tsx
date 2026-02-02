@@ -5,6 +5,7 @@ import authImage from '../../../Assets/SignupLoginPage.jpeg'
 import { Checkbox } from "../../../Components/CheckBox";
 import { Button } from "../../../Components/Button";
 import Input from "../../../Components/Input";
+import { Link } from "react-router-dom";
 
 const initialState: SignupFormData = {
     firstName: "",
@@ -104,7 +105,7 @@ export function SignupForm() {
                     {/* SubmitButton Moved */}
 
                     <label className={styles.switchAuth}>
-                        Already have an account? <a href="/login">Log in</a>
+                        Already have an account? <Link to="/login">Log in</Link>
                     </label>
 
                     <Button type="submit" disabled={!formData.acceptedTerms} >
