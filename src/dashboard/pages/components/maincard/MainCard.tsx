@@ -3,17 +3,17 @@ import styles from "./MainCard.module.css";
 
 export default function MainCard() {
 
-    type TodoState = {
+    type Todos = {
         id: number;
         title: string;
         desc: string;
         priority: 'High' | 'Medium' | 'Low';
         status: 'Pending' | 'Completed' | 'In Progress';
         completed: boolean;
+        createdAt:string;
     }[];
 
-
-    const initialState: TodoState = [
+    const initialState: Todos = [
         {
             id: 1,
             title: "Attend Nishcal’s Birthday Party",
@@ -42,33 +42,57 @@ export default function MainCard() {
     // todo States
     const [tasks, setTasks] = useState(initialState);
 
-    const completed = [
-        {
-            title: "Buy groceries",
-            desc: "Milk, eggs, vegetables.",
-        },
-        {
-            title: "Morning workout",
-            desc: "30 minutes cardio.",
-        },
-    ];
-
     // toggle Function
     function toggleTask(id: number) {
         setTasks(prev =>
             prev.map(task =>
-                task.id === id ? { ...task, completed: !task.status } : task
+                task.id === id ? { ...task, completed: !task.completed, status: task.completed ? 'Pending' : 'Completed' } : task
             )
         )
     }
 
-    const completedCount = tasks.filter(t=>t.completed).length;
-    const pendingCount = tasks.length-completedCount;
+    function addTask() {
+        if (!newTask.title.trim()) return;
+
+        setTasks(prev => [...prev, {
+            id: Date.now(),
+            title: newTask.title,
+            desc: newTask.desc,
+            completed: false,
+            priority: newTask.priority,
+            status: 'Pending',
+            createdAt:Date.now().toLocaleString(),
+        }]);
+        setNewTask({
+            title: '',
+            desc: '',
+            priority: 'Medium'
+        })
+        setIsModalOpen(false);
+    }
+
+    function searchTodos(input: string) {
+        [...tasks.filter(todo => todo.title === input.toLocaleLowerCase() ?
+            <p>{todo.title}</p> : ''
+        )]
+    }
+
+    const completedCount = tasks.filter(t => t.completed).length;
+    const pendingCount = tasks.length - completedCount;
+    const [newTask, setNewTask] = useState<{
+        title: string;
+        desc: string;
+        priority: "High" | "Medium" | "Low";
+    }>({
+        title: "",
+        desc: "",
+        priority: "Medium",
+    });
+    const [isModalOpen, setIsModalOpen] = useState(false);
 
     return (
         <div className={styles.mainCard}>
             <div className={styles.grid}>
-
                 {/* LEFT COLUMN */}
                 <div className={styles.left}>
                     <div className={styles.todoCard}>
@@ -89,14 +113,20 @@ export default function MainCard() {
                                     <div className={styles.todoContent}>
                                         <h4>{task.title}</h4>
                                         <p>{task.desc}</p>
+                                        <small className={styles.date}>Created At:{task.createdAt}</small>
                                     </div>
+                                    <p
+                                        className={`${styles.priority} ${styles[task.priority.toLowerCase()]
+                                            }`}
+                                    >
+                                        {task.priority}
+                                    </p>
                                 </div>
                             ))}
                         </div>
 
-
                         {/* ADD BUTTON */}
-                        <button className={styles.addTaskBtn}>+ Add Task</button>
+                        <button className={styles.addTaskBtn} onClick={() => setIsModalOpen(true)}>+ Add Task</button>
                     </div>
                 </div>
 
@@ -134,6 +164,56 @@ export default function MainCard() {
                     </div>
                 </div>
             </div>
+
+            {/* Adding a new Todo */}
+            {isModalOpen && (
+                <div className={styles.modalOverlay} onClick={() => setIsModalOpen(false)}>
+                    <div
+                        className={styles.modal}
+                        onClick={(e) => e.stopPropagation()}
+                    >
+                        <h3>Add New Task</h3>
+
+                        <input
+                            type="text"
+                            placeholder="Task title"
+                            value={newTask.title}
+                            onChange={(e) =>
+                                setNewTask(prev => ({ ...prev, title: e.target.value }))
+                            }
+                        />
+
+                        <textarea
+                            placeholder="Task description"
+                            value={newTask.desc}
+                            onChange={(e) =>
+                                setNewTask(prev => ({ ...prev, desc: e.target.value }))
+                            }
+                        />
+
+                        <select
+                            value={newTask.priority}
+                            onChange={(e) =>
+                                setNewTask(prev => ({
+                                    ...prev,
+                                    priority: e.target.value as "High" | "Medium" | "Low",
+                                }))
+                            }
+                        >
+                            <option value="High">High</option>
+                            <option value="Medium">Medium</option>
+                            <option value="Low">Low</option>
+                        </select>
+
+                        <div className={styles.modalActions}>
+                            <button onClick={() => setIsModalOpen(false)}>Cancel</button>
+                            <button className={styles.primary} onClick={addTask}>
+                                Add Task
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            )}
         </div>
     );
 }
