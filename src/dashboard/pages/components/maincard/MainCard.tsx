@@ -52,19 +52,19 @@ export default function MainCard() {
         },
     ];
 
-    const [tasks,setTasks] = useState<Todos>(()=>{
-        try{
+    const [tasks, setTasks] = useState<Todos>(() => {
+        try {
             const stroed = localStorage.getItem(STORAGE_KEY);
-            return stroed?JSON.parse(stroed):initialState;
+            return stroed ? JSON.parse(stroed) : initialState;
         }
-        catch{
+        catch {
             return initialState;
         }
     })
 
-    useEffect(()=>{
-        localStorage.setItem(STORAGE_KEY,JSON.stringify(tasks));
-    },[tasks])
+    useEffect(() => {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(tasks));
+    }, [tasks])
 
 
     // toggle Function
@@ -103,8 +103,10 @@ export default function MainCard() {
         )]
     }
 
-    const completedCount = tasks.filter(t => t.completed).length;
-    const pendingCount = tasks.length - completedCount;
+    const totalTasks = tasks.length;
+const completedCount = tasks.filter(t => t.completed).length;
+const pendingCount = totalTasks - completedCount;
+
     const [newTask, setNewTask] = useState<{
         title: string;
         desc: string;
@@ -181,7 +183,24 @@ export default function MainCard() {
                             <span>Pending</span>
                             <strong>{pendingCount}</strong>
                         </div>
+
+                        <div className={styles.progressBar}>
+                            <div
+                                className={styles.progressCompleted}
+                                style={{
+                                    width: totalTasks
+                                        ? `${(completedCount / totalTasks) * 100}%`
+                                        : "0%",
+                                }}
+                            />
+                        </div>
+
+                        <small className={styles.progressLabel}>
+                            {completedCount} of {totalTasks} tasks completed
+                        </small>
                     </div>
+
+
 
                     <div className={styles.completedTasks}>
                         <h4 className={styles.sectionTitle}>Completed Tasks</h4>

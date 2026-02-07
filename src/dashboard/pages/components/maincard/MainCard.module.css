@@ -359,3 +359,28 @@
   font-size: 11px;
   color: #999;
 }
+
+
+/* CSS For CHART */
+.progressBar {
+  width: 100%;
+  height: 10px;
+  background: #f0f2f6;
+  border-radius: 6px;
+  margin-top: 12px;
+  overflow: hidden;
+}
+
+.progressCompleted {
+  height: 100%;
+  background: #ff6b6b;
+  border-radius: 6px;
+  transition: width 0.3s ease;
+}
+
+.progressLabel {
+  display: block;
+  margin-top: 8px;
+  font-size: 11px;
+  color: #777;
+}
