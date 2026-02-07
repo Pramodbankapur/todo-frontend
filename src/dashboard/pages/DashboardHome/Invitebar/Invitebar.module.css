@@ -1,0 +1,75 @@
+.inviteBar {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  background: #ffffff;
+  padding: 20px 24px;
+  border-radius: 16px;
+  border: 1px solid #f1f1f1;
+}
+
+/* LEFT */
+.text {
+  display: flex;
+  flex-direction: column;
+}
+
+.greeting {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.greeting span {
+  color: #ff6b6b;
+}
+
+.subtext {
+  margin-top: 4px;
+  font-size: 13px;
+  color: #888;
+}
+
+/* RIGHT */
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 16px;   /* space between avatars & button */
+}
+
+/* Avatars */
+.avatars {
+  display: flex;
+  align-items: center;
+}
+
+.avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #ffffff;
+  margin-left: -10px;
+}
+
+.avatar:first-child {
+  margin-left: 0;
+}
+
+/* Button */
+.inviteBtn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+
+  background: #ff6b6b;
+  color: white;
+  border: none;
+
+  padding: 8px 14px;
+  border-radius: 10px;
+  font-size: 14px;
+  cursor: pointer;
+}

@@ -1,0 +1,26 @@
+.dashboardRoot {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.dashboardBody {
+  flex: 1;
+  display: flex;
+  overflow: hidden;
+}
+
+.dashboardContent {
+  flex: 1;
+  background: #f8f9fb;
+  padding: 24px;
+  overflow-y: auto;
+}
+
+.mainArea {
+  flex: 1;             
+  display: flex;
+  flex-direction: column;
+  padding: 24px;
+  background: #f9f9f9;
+}

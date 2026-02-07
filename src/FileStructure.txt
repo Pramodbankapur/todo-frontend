@@ -1,4 +1,15 @@
 src/
+ ├─ layouts/
+ │   └─ AuthLayout.tsx
+ ├─ pages/
+ │   └─ auth/
+ │       ├─ LoginForm.tsx
+ │       └─ SignupForm.tsx
+ ├─ AppRoutes.tsx
+
+
+
+src/
 │
 ├── assets/
 │   ├── images/
