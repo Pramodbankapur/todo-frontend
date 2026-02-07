@@ -1,5 +1,6 @@
 import { useState } from "react";
 import styles from "./MainCard.module.css";
+import getRelativeTime from './Utils/getRelativeTime'
 
 export default function MainCard() {
 
@@ -10,7 +11,8 @@ export default function MainCard() {
         priority: 'High' | 'Medium' | 'Low';
         status: 'Pending' | 'Completed' | 'In Progress';
         completed: boolean;
-        createdAt:string;
+        createdAt: number;
+        updatedAt: number;
     }[];
 
     const initialState: Todos = [
@@ -21,6 +23,8 @@ export default function MainCard() {
             priority: "High",
             status: "In Progress",
             completed: false,
+            createdAt: Date.now(),
+            updatedAt: Date.now(),
         },
         {
             id: 2,
@@ -29,6 +33,8 @@ export default function MainCard() {
             priority: "Medium",
             status: "Pending",
             completed: false,
+            createdAt: Date.now(),
+            updatedAt: Date.now(),
         },
         {
             id: 3,
@@ -37,6 +43,8 @@ export default function MainCard() {
             priority: "Low",
             status: "Completed",
             completed: true,
+            createdAt: Date.now(),
+            updatedAt: Date.now(),
         },
     ];
     // todo States
@@ -46,7 +54,7 @@ export default function MainCard() {
     function toggleTask(id: number) {
         setTasks(prev =>
             prev.map(task =>
-                task.id === id ? { ...task, completed: !task.completed, status: task.completed ? 'Pending' : 'Completed' } : task
+                task.id === id ? { ...task, completed: !task.completed, status: task.completed ? 'Pending' : 'Completed', updatedAt: Date.now() } : task
             )
         )
     }
@@ -61,7 +69,8 @@ export default function MainCard() {
             completed: false,
             priority: newTask.priority,
             status: 'Pending',
-            createdAt:Date.now().toLocaleString(),
+            createdAt: Date.now(),
+            updatedAt: Date.now(),
         }]);
         setNewTask({
             title: '',
@@ -90,6 +99,8 @@ export default function MainCard() {
     });
     const [isModalOpen, setIsModalOpen] = useState(false);
 
+    console.log(tasks.map(item => getRelativeTime(item.createdAt)));
+
     return (
         <div className={styles.mainCard}>
             <div className={styles.grid}>
@@ -113,7 +124,16 @@ export default function MainCard() {
                                     <div className={styles.todoContent}>
                                         <h4>{task.title}</h4>
                                         <p>{task.desc}</p>
-                                        <small className={styles.date}>Created At:{task.createdAt}</small>
+                                        <span className={styles.createdDate}>
+                                            Created • {getRelativeTime(task.createdAt)}
+                                        </span>
+
+                                        {task.updatedAt !== task.createdAt && (
+                                            <small className={styles.updated}>
+                                                Updated {getRelativeTime(task.updatedAt)}
+                                            </small>
+                                        )}
+
                                     </div>
                                     <p
                                         className={`${styles.priority} ${styles[task.priority.toLowerCase()]
@@ -153,10 +173,12 @@ export default function MainCard() {
                             {tasks.filter(t => t.completed).map(task => (
                                 <div key={task.id} className={styles.completedItem}>
                                     <input type="checkbox" checked readOnly />
-
-                                    <div>
+                                    <div style={{display:'flex',}}>
                                         <h5>{task.title}</h5>
                                         <p>{task.desc}</p>
+                                        <div>
+                                        <p>complted at {getRelativeTime(task.updatedAt)}</p>
+                                        </div>
                                     </div>
                                 </div>
                             ))}

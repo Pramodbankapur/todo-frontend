@@ -352,3 +352,10 @@
   background: #ff6b6b;
   color: white;
 }
+
+.createdDate {
+  display: block;
+  margin-top: 6px;
+  font-size: 11px;
+  color: #999;
+}
