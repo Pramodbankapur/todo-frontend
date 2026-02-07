@@ -8,7 +8,7 @@ export default function getRelativeTime(timeStamp:number){
     const days = Math.floor(hours/24);
 
     if(seconds<60) return 'Just now';
-    if(minutes<60) return `${minutes} min ${minutes>1?'s':''} ago`;
-    if(hours<24) return `${hours} hours ${hours>1?'s':''}ago`;
+    if(minutes<60) return `${minutes} min${minutes>1?'s':''} ago`;
+    if(hours<24) return `${hours} hours${hours>1?'s':''}ago`;
     return `${days} day${days>1?'s':''}ago`;
 }

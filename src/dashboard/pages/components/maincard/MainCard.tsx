@@ -1,8 +1,9 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styles from "./MainCard.module.css";
 import getRelativeTime from './Utils/getRelativeTime'
 
 export default function MainCard() {
+
 
     type Todos = {
         id: number;
@@ -14,6 +15,9 @@ export default function MainCard() {
         createdAt: number;
         updatedAt: number;
     }[];
+
+    const STORAGE_KEY = "todo_tasks";
+
 
     const initialState: Todos = [
         {
@@ -47,8 +51,21 @@ export default function MainCard() {
             updatedAt: Date.now(),
         },
     ];
-    // todo States
-    const [tasks, setTasks] = useState(initialState);
+
+    const [tasks,setTasks] = useState<Todos>(()=>{
+        try{
+            const stroed = localStorage.getItem(STORAGE_KEY);
+            return stroed?JSON.parse(stroed):initialState;
+        }
+        catch{
+            return initialState;
+        }
+    })
+
+    useEffect(()=>{
+        localStorage.setItem(STORAGE_KEY,JSON.stringify(tasks));
+    },[tasks])
+
 
     // toggle Function
     function toggleTask(id: number) {
@@ -173,11 +190,11 @@ export default function MainCard() {
                             {tasks.filter(t => t.completed).map(task => (
                                 <div key={task.id} className={styles.completedItem}>
                                     <input type="checkbox" checked readOnly />
-                                    <div style={{display:'flex',}}>
+                                    <div style={{ display: 'flex', }}>
                                         <h5>{task.title}</h5>
                                         <p>{task.desc}</p>
                                         <div>
-                                        <p>complted at {getRelativeTime(task.updatedAt)}</p>
+                                            <p>complted at {getRelativeTime(task.updatedAt)}</p>
                                         </div>
                                     </div>
                                 </div>
