@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import styles from "./MainCard.module.css";
 import getRelativeTime from './Utils/getRelativeTime'
+import { Topbar } from "../../../component/Topbar";
 
 export default function MainCard() {
 
@@ -139,8 +140,10 @@ export default function MainCard() {
 
     console.log(tasks.map(item => getRelativeTime(item.createdAt)));
 
-    return (
+    return (<div>
+        <Topbar value={search} onChange={setSearch}/>
         <div className={styles.mainCard}>
+
             <div className={styles.grid}>
                 {/* LEFT COLUMN */}
                 <div className={styles.left}>
@@ -316,5 +319,6 @@ export default function MainCard() {
                 </div>
             )}
         </div>
+    </div>
     );
 }
