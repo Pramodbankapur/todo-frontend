@@ -16,9 +16,16 @@ export default function MainCard() {
         updatedAt: number;
     }[];
 
+    // States
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [search, setSearch] = useState("");
+    const [filter, setFilter] = useState<"All" | "Completed" | "Pending">("All");
+    const [sortBy, setSortBy] = useState<"Newest" | "Oldest" | "Priority">("Newest");
+
+
+
+
     const STORAGE_KEY = "todo_tasks";
-
-
     const initialState: Todos = [
         {
             id: 1,
@@ -66,6 +73,25 @@ export default function MainCard() {
         localStorage.setItem(STORAGE_KEY, JSON.stringify(tasks));
     }, [tasks])
 
+    // Visible Tasks
+    // 🔍 SEARCH
+    const visibleTasks = (tasks
+        .filter(task => task.title.toLowerCase().includes(search.toLowerCase()) ||
+            task.desc.toLowerCase().includes(search.toLowerCase())))
+        // Filter
+        .filter(task => {
+            if (filter === 'Completed') return task.completed;
+            if (filter === 'Pending') return !task.completed;
+            return true;
+        })
+        // Sort
+        .sort((a, b) => {
+            if (sortBy === 'Newest') return b.createdAt - a.createdAt;
+            if (sortBy === "Oldest") return a.createdAt - b.createdAt;
+            // Priority sort
+            const priorityOrder = { High: 1, Medium: 2, Low: 3 };
+            return priorityOrder[a.priority] - priorityOrder[b.priority];
+        });
 
     // toggle Function
     function toggleTask(id: number) {
@@ -97,15 +123,9 @@ export default function MainCard() {
         setIsModalOpen(false);
     }
 
-    function searchTodos(input: string) {
-        [...tasks.filter(todo => todo.title === input.toLocaleLowerCase() ?
-            <p>{todo.title}</p> : ''
-        )]
-    }
-
     const totalTasks = tasks.length;
-const completedCount = tasks.filter(t => t.completed).length;
-const pendingCount = totalTasks - completedCount;
+    const completedCount = tasks.filter(t => t.completed).length;
+    const pendingCount = totalTasks - completedCount;
 
     const [newTask, setNewTask] = useState<{
         title: string;
@@ -116,7 +136,6 @@ const pendingCount = totalTasks - completedCount;
         desc: "",
         priority: "Medium",
     });
-    const [isModalOpen, setIsModalOpen] = useState(false);
 
     console.log(tasks.map(item => getRelativeTime(item.createdAt)));
 
@@ -125,6 +144,30 @@ const pendingCount = totalTasks - completedCount;
             <div className={styles.grid}>
                 {/* LEFT COLUMN */}
                 <div className={styles.left}>
+                    <div>
+                        <div className={styles.controls}>
+                            <input
+                                type="text"
+                                placeholder="Search tasks..."
+                                value={search}
+                                onChange={e => setSearch(e.target.value)}
+                                className={styles.searchInput}
+                            />
+
+                            <select value={filter} onChange={e => setFilter(e.target.value as any)}>
+                                <option value="All">All</option>
+                                <option value="Completed">Completed</option>
+                                <option value="Pending">Pending</option>
+                            </select>
+
+                            <select value={sortBy} onChange={e => setSortBy(e.target.value as any)}>
+                                <option value="Newest">Newest</option>
+                                <option value="Oldest">Oldest</option>
+                                <option value="Priority">Priority</option>
+                            </select>
+                        </div>
+
+                    </div>
                     <div className={styles.todoCard}>
                         <div className={styles.todoHeader}>
                             <h3>To-Do</h3>
@@ -132,7 +175,7 @@ const pendingCount = totalTasks - completedCount;
                         </div>
 
                         <div className={styles.todoList}>
-                            {tasks.filter(t => !t.completed).map(task => (
+                            {visibleTasks.filter(t => !t.completed).map(task => (
                                 <div key={task.id} className={styles.todoItem}>
                                     <input
                                         type="checkbox"
